@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Table(name = "immobile")
+@Table(name = "tb_immobile")
 @Entity(name = "immobile")
 @Getter
 @NoArgsConstructor
@@ -17,7 +17,8 @@ import java.time.LocalDate;
 public class Immobile{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
+
     private String title;
     private String description;
     private LocalDate creationDate;
@@ -31,5 +32,7 @@ public class Immobile{
     private String postcode;
     private String imageURL;
 
-    private
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private User seller;
 }

@@ -30,5 +30,5 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "seller")
-    private List<Immobile> immibiles = new ArrayList<>();
+    private List<Immobile> immobiles = new ArrayList<>();
 }

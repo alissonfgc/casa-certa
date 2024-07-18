@@ -29,11 +29,11 @@ public class Immobile  implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "seller_id")
-    private User seller;
+    private Seller seller;
 
     public Immobile() {}
 
-    public Immobile(User seller, String imageURL, String postcode, String type, String latitude, String longitude, Double total_area, String state, String city, String neighborhood, LocalDate creationDate, String description, String title, Long id) {
+    public Immobile(Seller seller, String imageURL, String postcode, String type, String latitude, String longitude, Double total_area, String state, String city, String neighborhood, LocalDate creationDate, String description, String title, Long id) {
         this.seller = seller;
         this.imageURL = imageURL;
         this.postcode = postcode;
@@ -154,11 +154,11 @@ public class Immobile  implements Serializable {
         this.imageURL = imageURL;
     }
 
-    public User getSeller() {
+    public Seller getSeller() {
         return seller;
     }
 
-    public void setSeller(User seller) {
+    public void setSeller(Seller seller) {
         this.seller = seller;
     }
 

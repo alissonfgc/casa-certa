@@ -9,18 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Table(name = "tb_user")
-@Entity(name = "user")
-public class User   implements Serializable {
+@Table(name = "tb_seller")
+@Entity(name = "seller")
+public class Seller implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false)
     private String name;
     @Column(unique = true, nullable = false)
-
     private String email;
     @Column(nullable = false)
     private String phoneNumber;
@@ -33,9 +31,9 @@ public class User   implements Serializable {
     @OneToMany(mappedBy = "seller")
     private List<Immobile> immobiles = new ArrayList<>();
 
-    public User() {}
+    public Seller() {}
 
-    public User(Long id, String name, String email, String phoneNumber, String registrationNumber, String password) {
+    public Seller(Long id, String name, String email, String phoneNumber, String registrationNumber, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -92,16 +90,12 @@ public class User   implements Serializable {
         return immobiles;
     }
 
-    public void setImmobiles(List<Immobile> immobiles) {
-        this.immobiles = immobiles;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+        Seller seller = (Seller) o;
+        return Objects.equals(id, seller.id);
     }
 
     @Override

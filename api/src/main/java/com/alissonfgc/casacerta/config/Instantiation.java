@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 @Configuration
 @Profile("test")
-public class TestConfig implements CommandLineRunner {
+public class Instantiation implements CommandLineRunner {
 
     @Autowired
     private SellerRepository sellerRepository;

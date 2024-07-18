@@ -1,39 +1,28 @@
-package com.alissonfgc.casacerta.entities;
+package com.alissonfgc.casacerta.dto;
 
-import jakarta.persistence.*;
+import com.alissonfgc.casacerta.entities.Client;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
-@Table(name = "tb_client")
-@Entity(name = "client")
-public class Client implements Serializable {
+public class ClientDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private String name;
-    @Column(unique = true, nullable = false)
     private String email;
-    @Column(nullable = false)
     private String phoneNumber;
-    @Column(name = "CPF", nullable = false)
     private String individualRegistration;
-    @Column(nullable = false)
     private String password;
 
-    public Client() {}
+    public ClientDTO() {}
 
-    public Client(Long id, String name, String email, String phoneNumber, String individualRegistration, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.individualRegistration = individualRegistration;
-        this.password = password;
+    public ClientDTO(Client client) {
+        this.id = client.getId();
+        this.name = client.getName();
+        this.email = client.getEmail();
+        this.phoneNumber = client.getPhoneNumber();
+        this.individualRegistration = client.getIndividualRegistration();
+        this.password = client.getPassword();
     }
 
     public Long getId() {
@@ -83,17 +72,5 @@ public class Client implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Client client = (Client) o;
-        return Objects.equals(id, client.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
 }
+

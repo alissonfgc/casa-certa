@@ -29,4 +29,23 @@ public class ClientResource {
         Client obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
+
+//    @PostMapping
+//    public ResponseEntity<User> insert(@RequestBody User obj) {
+//        obj = service.insert(obj);
+//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+//        return ResponseEntity.created(uri).body(obj);
+//    }
+//
+//    @DeleteMapping(value = "/{id}")
+//    public ResponseEntity<Void> delete(@PathVariable Long id) {
+//        service.delete(id);
+//        return ResponseEntity.noContent().build();
+//    }
+//
+//    @PutMapping(value = "/{id}")
+//    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj) {
+//        obj = service.update(id, obj);
+//        return ResponseEntity.ok().body(obj);
+//    }
 }

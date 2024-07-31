@@ -2,6 +2,7 @@ package com.alissonfgc.casacerta.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -9,11 +10,12 @@ import java.util.Objects;
 @Table(name = "tb_immobile")
 @Entity(name = "immobile")
 public class Immobile  implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
     private String description;
     private LocalDate creationDate;

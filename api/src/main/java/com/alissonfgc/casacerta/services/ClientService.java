@@ -4,6 +4,7 @@ import com.alissonfgc.casacerta.dto.ClientDTO;
 import com.alissonfgc.casacerta.entities.Client;
 import com.alissonfgc.casacerta.repository.ClientRepository;
 import com.alissonfgc.casacerta.services.exceptions.ResourceNotFoundException;
+import com.alissonfgc.casacerta.services.exceptions.UniqueException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,11 @@ public class ClientService {
     }
 
     public Client insert(Client object) {
-        return repository.save(object);
+        if (repository.findByEmail(object.getEmail()) != null) {
+            throw new UniqueException("Email already exists");
+        } else {
+            return repository.save(object);
+        }
     }
 
     public void delete(Long id) {

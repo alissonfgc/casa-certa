@@ -21,6 +21,20 @@ public class ImmobileService {
         return repository.findAll();
     }
 
+    public Immobile findById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    public Immobile save(Immobile immobile) {
+        return repository.save(immobile);
+    }
+
+    public List<Immobile> findBySeller(Seller seller) {
+        return repository.findBySeller(seller);
+    }
+
+//    public List<Immobile>
+
     public Immobile fromDTO(ImmobileDTO objDTO) {
         return new Immobile(new Seller(objDTO.getVendor().getId(), objDTO.getVendor().getName(), objDTO.getVendor().getEmail(), objDTO.getVendor().getPhoneNumber(), null, null), objDTO.getImageURL(),objDTO.getPostcode(), objDTO.getType(), objDTO.getLatitude(), objDTO.getLongitude(), objDTO.getTotalArea(), objDTO.getState(), objDTO.getCity(), objDTO.getNeighborhood(), objDTO.getCreationDate(), objDTO.getDescription(), objDTO.getTitle(), objDTO.getId());
     }

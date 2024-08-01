@@ -4,9 +4,11 @@ import com.alissonfgc.casacerta.dto.ImmobileDTO;
 import com.alissonfgc.casacerta.entities.Immobile;
 import com.alissonfgc.casacerta.entities.Seller;
 import com.alissonfgc.casacerta.repository.ImmobileRepository;
+import com.alissonfgc.casacerta.services.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ImmobileService {
@@ -22,15 +24,21 @@ public class ImmobileService {
     }
 
     public Immobile findById(Long id) {
-        return repository.findById(id).orElse(null);
+        Optional<Immobile> object = repository.findById(id);
+        return object.orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    public List<Immobile> findBySeller(Seller seller) {
+        return repository.findBySeller(seller);
     }
 
     public Immobile save(Immobile immobile) {
         return repository.save(immobile);
     }
 
-    public List<Immobile> findBySeller(Seller seller) {
-        return repository.findBySeller(seller);
+    public void delete(Long id ) {
+        findById(id);
+        repository.deleteById(id);
     }
 
 //    public List<Immobile>

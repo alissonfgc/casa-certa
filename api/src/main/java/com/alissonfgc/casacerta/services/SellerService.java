@@ -3,6 +3,7 @@ package com.alissonfgc.casacerta.services;
 import com.alissonfgc.casacerta.dto.SellerDTO;
 import com.alissonfgc.casacerta.entities.Seller;
 import com.alissonfgc.casacerta.repository.SellerRepository;
+import com.alissonfgc.casacerta.services.exceptions.ResourceNotFoundException;
 import com.alissonfgc.casacerta.services.exceptions.UniqueException;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,8 @@ public class SellerService {
     }
 
     public Seller findById(Long id) {
-        Optional<Seller> obj = repository.findById(id);
-        return obj.get();
+        Optional<Seller> object = repository.findById(id);
+        return object.orElseThrow(() -> new ResourceNotFoundException(id + ", Seller not found"));
     }
 
     public Seller insert(Seller object) {

@@ -25,7 +25,7 @@ public class ImmobileService {
 
     public Immobile findById(Long id) {
         Optional<Immobile> object = repository.findById(id);
-        return object.orElseThrow(() -> new ResourceNotFoundException(id));
+        return object.orElseThrow(() -> new ResourceNotFoundException(id + ", Immobile not found"));
     }
 
     public List<Immobile> findBySeller(Seller seller) {

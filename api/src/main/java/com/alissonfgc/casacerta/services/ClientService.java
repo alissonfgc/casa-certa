@@ -24,8 +24,8 @@ public class ClientService {
     }
 
     public Client findById(Long id) {
-        Optional<Client> client = repository.findById(id);
-        return client.orElseThrow(() -> new ResourceNotFoundException("Client not found"));
+        Optional<Client> object = repository.findById(id);
+        return object.orElseThrow(() -> new ResourceNotFoundException(id + ", Client not found"));
     }
 
     public Client insert(Client object) {

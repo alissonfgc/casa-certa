@@ -6,7 +6,7 @@ import com.alissonfgc.casacerta.entities.Seller;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class ImmobileDTO implements Serializable {
+public class AuxiliaryImmobileDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -22,11 +22,11 @@ public class ImmobileDTO implements Serializable {
     private String type;
     private String postcode;
     private String imageURL;
-    private Seller seller;
+    private VendorDTO vendor;
 
-    public ImmobileDTO() {}
+    public AuxiliaryImmobileDTO() {}
 
-    public ImmobileDTO(Immobile immobile) {
+    public AuxiliaryImmobileDTO(Immobile immobile) {
         this.id = immobile.getId();
         this.title = immobile.getTitle();
         this.description = immobile.getDescription();
@@ -40,7 +40,7 @@ public class ImmobileDTO implements Serializable {
         this.type = immobile.getType();
         this.postcode = immobile.getPostcode();
         this.imageURL = immobile.getImageURL();
-        this.seller = immobile.getSeller();
+        this.vendor = new VendorDTO(immobile.getSeller());
     }
 
     public Long getId() {
@@ -147,11 +147,11 @@ public class ImmobileDTO implements Serializable {
         this.imageURL = imageURL;
     }
 
-    public Seller getSeller() {
-        return seller;
+    public VendorDTO getVendor() {
+        return vendor;
     }
 
-    public void setSeller(Seller seller) {
-        this.seller = seller;
+    public void setVendor(Seller seller) {
+        this.vendor = new VendorDTO(seller);
     }
 }

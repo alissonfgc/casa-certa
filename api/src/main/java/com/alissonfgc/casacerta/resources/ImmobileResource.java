@@ -1,5 +1,6 @@
 package com.alissonfgc.casacerta.resources;
 
+import com.alissonfgc.casacerta.dto.AuxiliaryImmobileDTO;
 import com.alissonfgc.casacerta.dto.ImmobileDTO;
 import com.alissonfgc.casacerta.entities.Immobile;
 import com.alissonfgc.casacerta.services.ImmobileService;
@@ -26,16 +27,16 @@ public class ImmobileResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<ImmobileDTO>> findAll() {
+    public ResponseEntity<List<AuxiliaryImmobileDTO>> findAll() {
         List<Immobile> list = service.findAll();
-        List<ImmobileDTO> listDTO = list.stream().map(ImmobileDTO::new).collect(Collectors.toList());
+        List<AuxiliaryImmobileDTO> listDTO = list.stream().map(AuxiliaryImmobileDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ImmobileDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<AuxiliaryImmobileDTO> findById(@PathVariable Long id) {
         Immobile entity = service.findById(id);
-        return ResponseEntity.ok().body(new ImmobileDTO(entity));
+        return ResponseEntity.ok().body(new AuxiliaryImmobileDTO(entity));
     }
 
     @PostMapping(value = "/{sellerId}")
@@ -51,4 +52,14 @@ public class ImmobileResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping(value = "/{sellerId}/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long sellerId, @PathVariable Long id, @RequestBody ImmobileDTO entityDTO) {
+        entityDTO.setSeller(sellerService.findById(sellerId));
+        Immobile newDataEntity = service.fromDTO(entityDTO);
+        newDataEntity.setId(id);
+        newDataEntity = service.update(newDataEntity);
+        return ResponseEntity.noContent().build();
+    }
+
 }

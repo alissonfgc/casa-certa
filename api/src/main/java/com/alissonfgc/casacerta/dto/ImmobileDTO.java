@@ -1,59 +1,46 @@
-package com.alissonfgc.casacerta.entities;
+package com.alissonfgc.casacerta.dto;
 
-import jakarta.persistence.*;
+import com.alissonfgc.casacerta.entities.Immobile;
+import com.alissonfgc.casacerta.entities.Seller;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
-@Table(name = "tb_immobile")
-@Entity(name = "immobile")
-public class Immobile  implements Serializable {
-    @Serial
+public class ImmobileDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
-
-    @Column(name = "creation_date")
     private LocalDate creationDate;
     private String neighborhood;
     private String city;
     private String state;
-
-    @Column(name = "total_area")
     private Double totalArea;
     private String longitude;
     private String latitude;
     private String type;
     private String postcode;
     private String imageURL;
+    private VendorDTO vendor;
 
-    @ManyToOne
-    @JoinColumn(name = "vendor_id")
-    private Seller seller;
+    public ImmobileDTO() {}
 
-    public Immobile() {}
-
-    public Immobile(Seller seller, String imageURL, String postcode, String type, String latitude, String longitude, Double totalArea, String state, String city, String neighborhood, LocalDate creationDate, String description, String title, Long id) {
-        this.seller = seller;
-        this.imageURL = imageURL;
-        this.postcode = postcode;
-        this.type = type;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.totalArea = totalArea;
-        this.state = state;
-        this.city = city;
-        this.neighborhood = neighborhood;
-        this.creationDate = creationDate;
-        this.description = description;
-        this.title = title;
-        this.id = id;
+    public ImmobileDTO(Immobile immobile) {
+        this.id = immobile.getId();
+        this.title = immobile.getTitle();
+        this.description = immobile.getDescription();
+        this.creationDate = immobile.getCreationDate();
+        this.neighborhood = immobile.getNeighborhood();
+        this.city = immobile.getCity();
+        this.state = immobile.getState();
+        this.totalArea = immobile.getTotalArea();
+        this.longitude = immobile.getLongitude();
+        this.latitude = immobile.getLatitude();
+        this.type = immobile.getType();
+        this.postcode = immobile.getPostcode();
+        this.imageURL = immobile.getImageURL();
+        this.vendor = new VendorDTO(immobile.getSeller());
     }
 
     public Long getId() {
@@ -160,24 +147,11 @@ public class Immobile  implements Serializable {
         this.imageURL = imageURL;
     }
 
-    public Seller getSeller() {
-        return seller;
+    public VendorDTO getVendor() {
+        return vendor;
     }
 
-    public void setSeller(Seller seller) {
-        this.seller = seller;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Immobile immobile = (Immobile) o;
-        return Objects.equals(id, immobile.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+    public void setVendor(Seller seller) {
+        this.vendor = new VendorDTO(seller);
     }
 }

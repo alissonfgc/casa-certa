@@ -38,8 +38,8 @@ public class Instantiation implements CommandLineRunner {
         sellerRepository.saveAll(Arrays.asList(s1, s2, s3));
 
         Immobile i1 = new Immobile(s1, "./imageURL", "19999-999", "type", "-latitude", "-longitude", 60.00, "state", "city", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
-        Immobile i2 = new Immobile(s1, "./imageURL", "29999-999", "type", "-latitude", "-longitude", 60.00, "state", "city", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
-        Immobile i3 = new Immobile(s2, "./imageURL", "39999-999", "type", "-latitude", "-longitude", 60.00, "state", "city", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
+        Immobile i2 = new Immobile(s2, "./imageURL", "29999-999", "type", "-latitude", "-longitude", 60.00, "state", "city", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
+        Immobile i3 = new Immobile(s3, "./imageURL", "39999-999", "type", "-latitude", "-longitude", 60.00, "state", "city", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
 
         immobileRepository.saveAll(Arrays.asList(i1, i2, i3));
 

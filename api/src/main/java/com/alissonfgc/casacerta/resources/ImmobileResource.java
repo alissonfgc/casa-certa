@@ -53,7 +53,7 @@ public class ImmobileResource {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "/{sellerId}/{id}")
+    @PutMapping(value = "/vendor/{sellerId}/{id}")
     public ResponseEntity<Void> update(@PathVariable Long sellerId, @PathVariable Long id, @RequestBody ImmobileDTO entityDTO) {
         entityDTO.setSeller(sellerService.findById(sellerId));
         Immobile newDataEntity = service.fromDTO(entityDTO);
@@ -61,5 +61,13 @@ public class ImmobileResource {
         newDataEntity = service.update(newDataEntity);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(value = "/vendor/{sellerId}")
+    public ResponseEntity<ImmobileDTO> findBySellerId(@PathVariable Long sellerId) {
+        List<Immobile> list = service.findBySeller(sellerService.findById(sellerId));
+        List<ImmobileDTO> listDTO = list.stream().map(x -> new ImmobileDTO(x)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO.get(0));
+    }
+
 
 }

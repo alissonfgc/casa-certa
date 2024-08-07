@@ -29,10 +29,6 @@ public class ImmobileService {
         return object.orElseThrow(() -> new ResourceNotFoundException(id + ", Immobile not found"));
     }
 
-    public List<Immobile> findBySeller(Seller seller) {
-        return repository.findBySeller(seller);
-    }
-
     public Immobile save(Immobile immobile) {
         return repository.save(immobile);
     }
@@ -49,6 +45,17 @@ public class ImmobileService {
         updateData(updatedEntity, newDataEntity);
         return repository.save(updatedEntity);
     }
+
+    public List<Immobile> findBySeller(Seller seller) {
+        return repository.findBySeller(seller);
+    }
+
+//    public List<Immobile> findByState
+//
+//    findByNeighborhood
+//    findImmobileByCity
+//    findByState
+//    findByType
 
     private void updateData(Immobile oldDataEntity, Immobile newDataEntity) {
         oldDataEntity.setTitle(newDataEntity.getTitle());

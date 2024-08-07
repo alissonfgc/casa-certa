@@ -39,7 +39,15 @@ public class ImmobileResource {
         return ResponseEntity.ok().body(new AuxiliaryImmobileDTO(entity));
     }
 
-    @PostMapping(value = "/{sellerId}")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+//    @GetMapping(value = "/")
+
+    @PostMapping(value = "/vendor/{sellerId}")
     public ResponseEntity<Immobile> insert(@PathVariable Long sellerId, @RequestBody Immobile entity) {
         entity.setSeller(sellerService.findById(sellerId));
         entity = service.save(entity);
@@ -47,27 +55,19 @@ public class ImmobileResource {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
     @PutMapping(value = "/vendor/{sellerId}/{id}")
     public ResponseEntity<Void> update(@PathVariable Long sellerId, @PathVariable Long id, @RequestBody ImmobileDTO entityDTO) {
         entityDTO.setSeller(sellerService.findById(sellerId));
         Immobile newDataEntity = service.fromDTO(entityDTO);
         newDataEntity.setId(id);
-        newDataEntity = service.update(newDataEntity);
+        service.update(newDataEntity);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping(value = "/vendor/{sellerId}")
-    public ResponseEntity<ImmobileDTO> findBySellerId(@PathVariable Long sellerId) {
+    public ResponseEntity<List<ImmobileDTO>> findBySellerId(@PathVariable Long sellerId) {
         List<Immobile> list = service.findBySeller(sellerService.findById(sellerId));
-        List<ImmobileDTO> listDTO = list.stream().map(x -> new ImmobileDTO(x)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO.get(0));
+        List<ImmobileDTO> listDTO = list.stream().map(ImmobileDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
-
-
 }

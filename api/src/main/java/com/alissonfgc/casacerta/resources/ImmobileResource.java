@@ -3,8 +3,10 @@ package com.alissonfgc.casacerta.resources;
 import com.alissonfgc.casacerta.dto.AuxiliaryImmobileDTO;
 import com.alissonfgc.casacerta.dto.ImmobileDTO;
 import com.alissonfgc.casacerta.entities.Immobile;
+import com.alissonfgc.casacerta.resources.util.URL;
 import com.alissonfgc.casacerta.services.ImmobileService;
 import com.alissonfgc.casacerta.services.SellerService;
+import com.alissonfgc.casacerta.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,13 +41,20 @@ public class ImmobileResource {
         return ResponseEntity.ok().body(new AuxiliaryImmobileDTO(entity));
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
-    }
+    @GetMapping(value = "/equalsearch")
+public ResponseEntity<List<AuxiliaryImmobileDTO>> equalSearch(@RequestParam(value = "state", defaultValue = "") String state, @RequestParam(value = "city", defaultValue = "") String city, @RequestParam(value = "type", defaultValue = "") String type){
+        state = URL.decodeParam(state);
+        city = URL.decodeParam(city);
+        type = URL.decodeParam(type);
+        List<Immobile> list = service.equalSearch(state, city, type);
+        List<AuxiliaryImmobileDTO> listDTO = list.stream().map(AuxiliaryImmobileDTO::new).collect(Collectors.toList());
 
-//    @GetMapping(value = "/")
+        if (listDTO.isEmpty()) {
+            throw new ObjectNotFoundException("Immobile not found with the search parameters: " + state + ", " + city + ", " + type);
+        } else {
+            return ResponseEntity.ok().body(listDTO);
+        }
+    }
 
     @PostMapping(value = "/vendor/{sellerId}")
     public ResponseEntity<Immobile> insert(@PathVariable Long sellerId, @RequestBody Immobile entity) {
@@ -53,6 +62,12 @@ public class ImmobileResource {
         entity = service.save(entity);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entity.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @DeleteMapping(value = "/vendor/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/vendor/{sellerId}/{id}")

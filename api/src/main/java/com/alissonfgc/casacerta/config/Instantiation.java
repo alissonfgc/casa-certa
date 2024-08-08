@@ -37,11 +37,14 @@ public class Instantiation implements CommandLineRunner {
 
         sellerRepository.saveAll(Arrays.asList(s1, s2, s3));
 
-        Immobile i1 = new Immobile(s1, "./imageURL", "19999-999", "type", "-latitude", "-longitude", 60.00, "state", "city", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
-        Immobile i2 = new Immobile(s2, "./imageURL", "29999-999", "type", "-latitude", "-longitude", 60.00, "state", "city", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
-        Immobile i3 = new Immobile(s3, "./imageURL", "39999-999", "type", "-latitude", "-longitude", 60.00, "state", "city", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
+        Immobile i1 = new Immobile(s1, "./imageURL", "19999-999", "apartment", "-latitude", "-longitude", 60.00, "DF", "ceilandia", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
+        Immobile i2 = new Immobile(s2, "./imageURL", "29999-999", "apartment", "-latitude", "-longitude", 60.00, "DF", "taguatinga", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
+        Immobile i3 = new Immobile(s3, "./imageURL", "39999-999", "house", "-latitude", "-longitude", 60.00, "DF", "taguatinga", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
+        Immobile i4 = new Immobile(s1, "./imageURL", "19999-999", "apartment", "-latitude", "-longitude", 60.00, "GO", "aguas lindas", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
+        Immobile i5 = new Immobile(s2, "./imageURL", "29999-999", "commercial", "-latitude", "-longitude", 60.00, "DF", "taguatinga", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
+        Immobile i6 = new Immobile(s3, "./imageURL", "39999-999", "house", "-latitude", "-longitude", 60.00, "GO", "aguas lindas", "neighborhood", LocalDate.now(), "Lorem impsulum udhasb hasbdu asi hasbdu uavdaus", "Lorem", null);
 
-        immobileRepository.saveAll(Arrays.asList(i1, i2, i3));
+        immobileRepository.saveAll(Arrays.asList(i1, i2, i3, i4, i5, i6));
 
         Client c1 = new Client(null, "tonho", "tonho@gmail.com", "(61) 9 8181-9191", "999.999.333.99", "12215678");
         Client c2 = new Client(null, "tonhao", "tonhao@gmail.com", "(61) 9 9191-8181", "999.333.777.33", "12399687");

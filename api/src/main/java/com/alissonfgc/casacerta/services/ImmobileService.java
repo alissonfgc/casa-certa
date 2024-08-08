@@ -5,9 +5,11 @@ import com.alissonfgc.casacerta.dto.ImmobileDTO;
 import com.alissonfgc.casacerta.entities.Immobile;
 import com.alissonfgc.casacerta.entities.Seller;
 import com.alissonfgc.casacerta.repository.ImmobileRepository;
+import com.alissonfgc.casacerta.services.exceptions.ObjectNotFoundException;
 import com.alissonfgc.casacerta.services.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,8 +40,6 @@ public class ImmobileService {
         repository.deleteById(id);
     }
 
-//    public List<Immobile>
-
     public Immobile update(Immobile newDataEntity) {
         Immobile updatedEntity = findById(newDataEntity.getId());
         updateData(updatedEntity, newDataEntity);
@@ -50,12 +50,22 @@ public class ImmobileService {
         return repository.findBySeller(seller);
     }
 
-//    public List<Immobile> findByState
-//
-//    findByNeighborhood
-//    findImmobileByCity
-//    findByState
-//    findByType
+    public List<Immobile> equalSearch(String state, String city, String type) {
+        List<Immobile> searchList = new ArrayList<Immobile>();
+        if (state.isEmpty() && city.isEmpty() && type.isEmpty()) {
+            return findAll();
+        } else if (!state.isEmpty() && !city.isEmpty() && type.isEmpty()) {
+            return repository.findByStateAndCityIgnoreCase(state, city);
+        } else if (!state.isEmpty() && city.isEmpty() && !type.isEmpty()) {
+            return repository.findByStateAndTypeIgnoreCase(state, type);
+        } else if (state.isEmpty() && !city.isEmpty() && !type.isEmpty()) {
+            return repository.findByCityAndTypeIgnoreCase(city, type);
+        }else if ((!(state.isEmpty() && city.isEmpty()) && type.isEmpty())) {
+            return repository.findByStateAndCityAndTypeIgnoreCase(state, city, type);
+        } else {
+            return repository.findByStateOrCityOrTypeIgnoreCase(state, city, type);
+        }
+    }
 
     private void updateData(Immobile oldDataEntity, Immobile newDataEntity) {
         oldDataEntity.setTitle(newDataEntity.getTitle());

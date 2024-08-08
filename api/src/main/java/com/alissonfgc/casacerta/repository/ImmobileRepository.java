@@ -10,17 +10,15 @@ import java.util.List;
 @Repository
 public interface ImmobileRepository extends JpaRepository<Immobile, Long> {
 
-    List<Immobile> findByNeighborhoodContainingIgnoreCase(String neighborhood);
+    List<Immobile> findByStateOrCityOrTypeIgnoreCase(String state, String city, String type);
 
-    List<Immobile> findImmobileByCityContainingIgnoreCase(String city);
+    List<Immobile> findByStateAndCityAndTypeIgnoreCase(String state, String city, String type);
 
-    List<Immobile> findByStateContainingIgnoreCase(String state);
+    List<Immobile> findByStateAndCityIgnoreCase(String state, String city);
 
-    List<Immobile> findByTypeContainingIgnoreCase(String type);
+    List<Immobile> findByStateAndTypeIgnoreCase(String state, String type);
+
+    List<Immobile> findByCityAndTypeIgnoreCase(String city, String type);
 
     List<Immobile> findBySeller(Seller seller);
-
-    //	SELECT * FROM Customers
-    //WHERE CustomerName LIKE '%a';
-
 }

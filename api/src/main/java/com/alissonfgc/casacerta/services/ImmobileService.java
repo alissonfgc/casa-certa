@@ -5,7 +5,6 @@ import com.alissonfgc.casacerta.dto.ImmobileDTO;
 import com.alissonfgc.casacerta.entities.Immobile;
 import com.alissonfgc.casacerta.entities.Seller;
 import com.alissonfgc.casacerta.repository.ImmobileRepository;
-import com.alissonfgc.casacerta.services.exceptions.ObjectNotFoundException;
 import com.alissonfgc.casacerta.services.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +64,10 @@ public class ImmobileService {
         } else {
             return repository.findByStateOrCityOrTypeIgnoreCase(state, city, type);
         }
+    }
+
+    public List<Immobile> fullSearch(String title, String description, String neighborhood) {
+        return repository.fullSearch(title.toUpperCase().trim(), description.toUpperCase().trim(), neighborhood.toUpperCase().trim());
     }
 
     private void updateData(Immobile oldDataEntity, Immobile newDataEntity) {

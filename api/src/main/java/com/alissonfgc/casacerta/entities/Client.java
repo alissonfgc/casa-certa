@@ -12,7 +12,8 @@ public class Client implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     @Column(nullable = false)
     private String name;
@@ -25,7 +26,8 @@ public class Client implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    public Client() {}
+    public Client() {
+    }
 
     public Client(String id, String name, String email, String phoneNumber, String individualRegistration, String password) {
         this.id = id;

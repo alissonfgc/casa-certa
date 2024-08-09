@@ -14,7 +14,8 @@ public class ClientDTO implements Serializable {
     private String individualRegistration;
     private String password;
 
-    public ClientDTO() {}
+    public ClientDTO() {
+    }
 
     public ClientDTO(Client client) {
         this.id = client.getId();

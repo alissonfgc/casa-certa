@@ -1,4 +1,3 @@
-
 package com.alissonfgc.casacerta.dto;
 
 import com.alissonfgc.casacerta.entities.Seller;

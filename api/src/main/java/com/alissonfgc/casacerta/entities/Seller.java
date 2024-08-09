@@ -16,8 +16,9 @@ public class Seller implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     @Column(nullable = false)
     private String name;
     @Column(unique = true, nullable = false)
@@ -33,9 +34,10 @@ public class Seller implements Serializable {
     @OneToMany(mappedBy = "seller")
     private List<Immobile> immobiles = new ArrayList<>();
 
-    public Seller() {}
+    public Seller() {
+    }
 
-    public Seller(Long id, String name, String email, String phoneNumber, String registrationNumber, String password) {
+    public Seller(String id, String name, String email, String phoneNumber, String registrationNumber, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -44,11 +46,11 @@ public class Seller implements Serializable {
         this.password = password;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

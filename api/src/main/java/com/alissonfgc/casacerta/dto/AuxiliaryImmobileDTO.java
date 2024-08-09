@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class AuxiliaryImmobileDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
     private String title;
     private String description;
     private LocalDate creationDate;
@@ -24,7 +24,8 @@ public class AuxiliaryImmobileDTO implements Serializable {
     private String imageURL;
     private VendorDTO vendor;
 
-    public AuxiliaryImmobileDTO() {}
+    public AuxiliaryImmobileDTO() {
+    }
 
     public AuxiliaryImmobileDTO(Immobile immobile) {
         this.id = immobile.getId();
@@ -43,11 +44,11 @@ public class AuxiliaryImmobileDTO implements Serializable {
         this.vendor = new VendorDTO(immobile.getSeller());
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

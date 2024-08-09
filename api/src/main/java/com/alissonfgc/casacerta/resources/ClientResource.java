@@ -29,7 +29,7 @@ public class ClientResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<ClientDTO> findById(@PathVariable String id) {
         Client obj = service.findById(id);
         return ResponseEntity.ok().body(new ClientDTO(obj));
     }
@@ -43,24 +43,16 @@ public class ClientResource {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@RequestBody ClientDTO objDTO, @PathVariable Long id) {
+    public ResponseEntity<Void> update(@RequestBody ClientDTO objDTO, @PathVariable String id) {
         Client newDataObj = service.fromDTO(objDTO);
         newDataObj.setId(id);
         newDataObj = service.update(newDataObj);
         return ResponseEntity.noContent().build();
     }
-
-//    Implementar a pesquisa de imoveis upados por vendedor
-//    @GetMapping(value = "/{id}/immobiles")
-//    public ResponseEntity<List<Immobile>> findImmobile(@PathVariable Long id) {
-//        Client client = service.findById(id);
-//        Immobile immobile = ;
-//        return ResponseEntity.ok().body();
-//    }
 }

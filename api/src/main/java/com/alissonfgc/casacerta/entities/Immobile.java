@@ -9,13 +9,13 @@ import java.util.Objects;
 
 @Table(name = "tb_immobile")
 @Entity(name = "immobile")
-public class Immobile  implements Serializable {
+public class Immobile implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String title;
     private String description;
 
@@ -37,9 +37,10 @@ public class Immobile  implements Serializable {
     @JoinColumn(name = "vendor_id")
     private Seller seller;
 
-    public Immobile() {}
+    public Immobile() {
+    }
 
-    public Immobile(Seller seller, String imageURL, String postcode, String type, String latitude, String longitude, Double totalArea, String state, String city, String neighborhood, LocalDate creationDate, String description, String title, Long id) {
+    public Immobile(Seller seller, String imageURL, String postcode, String type, String latitude, String longitude, Double totalArea, String state, String city, String neighborhood, LocalDate creationDate, String description, String title, String id) {
         this.seller = seller;
         this.imageURL = imageURL;
         this.postcode = postcode;
@@ -56,11 +57,11 @@ public class Immobile  implements Serializable {
         this.id = id;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

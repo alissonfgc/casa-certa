@@ -7,12 +7,13 @@ import java.io.Serializable;
 public class VendorDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
     private String name;
     private String email;
     private String phoneNumber;
 
-    public VendorDTO() {}
+    public VendorDTO() {
+    }
 
     public VendorDTO(Seller seller) {
         this.id = seller.getId();
@@ -21,11 +22,11 @@ public class VendorDTO implements Serializable {
         this.phoneNumber = seller.getPhoneNumber();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

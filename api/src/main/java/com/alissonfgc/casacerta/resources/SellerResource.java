@@ -29,7 +29,7 @@ public class SellerResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<SellerDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<SellerDTO> findById(@PathVariable String id) {
         Seller obj = service.findById(id);
         return ResponseEntity.ok().body(new SellerDTO(obj));
     }
@@ -37,19 +37,19 @@ public class SellerResource {
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody SellerDTO objDTO) {
         Seller obj = service.fromDTO(objDTO);
-            obj = service.insert(obj);
-            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-            return ResponseEntity.created(uri).build();
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@RequestBody SellerDTO objDTO, @PathVariable Long id) {
+    public ResponseEntity<Void> update(@RequestBody SellerDTO objDTO, @PathVariable String id) {
         Seller newDataObj = service.fromDTO(objDTO);
         newDataObj.setId(id);
         newDataObj = service.update(newDataObj);

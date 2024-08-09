@@ -23,7 +23,7 @@ public class ClientService {
         return repository.findAll();
     }
 
-    public Client findById(Long id) {
+    public Client findById(String id) {
         Optional<Client> object = repository.findById(id);
         return object.orElseThrow(() -> new ResourceNotFoundException(id + ", Client not found"));
     }
@@ -36,7 +36,7 @@ public class ClientService {
         }
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         findById(id);
         repository.deleteById(id);
     }

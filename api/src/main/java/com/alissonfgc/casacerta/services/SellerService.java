@@ -23,7 +23,7 @@ public class SellerService {
         return repository.findAll();
     }
 
-    public Seller findById(Long id) {
+    public Seller findById(String id) {
         Optional<Seller> object = repository.findById(id);
         return object.orElseThrow(() -> new ResourceNotFoundException(id + ", Seller not found"));
     }
@@ -36,7 +36,7 @@ public class SellerService {
         }
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         findById(id);
         repository.deleteById(id);
     }

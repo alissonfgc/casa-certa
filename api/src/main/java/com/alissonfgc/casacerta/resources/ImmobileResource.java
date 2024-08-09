@@ -36,13 +36,13 @@ public class ImmobileResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<AuxiliaryImmobileDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<AuxiliaryImmobileDTO> findById(@PathVariable String id) {
         Immobile entity = service.findById(id);
         return ResponseEntity.ok().body(new AuxiliaryImmobileDTO(entity));
     }
 
     @GetMapping(value = "/equalsearch")
-    public ResponseEntity<List<AuxiliaryImmobileDTO>> equalSearch(@RequestParam(value = "state", defaultValue = "") String state, @RequestParam(value = "city", defaultValue = "") String city, @RequestParam(value = "type", defaultValue = "") String type){
+    public ResponseEntity<List<AuxiliaryImmobileDTO>> equalSearch(@RequestParam(value = "state", defaultValue = "") String state, @RequestParam(value = "city", defaultValue = "") String city, @RequestParam(value = "type", defaultValue = "") String type) {
         state = URL.decodeParam(state);
         city = URL.decodeParam(city);
         type = URL.decodeParam(type);
@@ -57,7 +57,7 @@ public class ImmobileResource {
     }
 
     @GetMapping(value = "/fullsearch")
-    public ResponseEntity<List<AuxiliaryImmobileDTO>> fullSearch(@RequestParam(value = "title", defaultValue = "none") String title, @RequestParam(value = "description", defaultValue = "none") String description, @RequestParam(value = "neighborhood", defaultValue = "none") String neighborhood){
+    public ResponseEntity<List<AuxiliaryImmobileDTO>> fullSearch(@RequestParam(value = "title", defaultValue = "none") String title, @RequestParam(value = "description", defaultValue = "none") String description, @RequestParam(value = "neighborhood", defaultValue = "none") String neighborhood) {
         title = URL.decodeParam(title);
         description = URL.decodeParam(description);
         neighborhood = URL.decodeParam(neighborhood);
@@ -72,7 +72,7 @@ public class ImmobileResource {
     }
 
     @PostMapping(value = "/vendor/{sellerId}")
-    public ResponseEntity<Immobile> insert(@PathVariable Long sellerId, @RequestBody Immobile entity) {
+    public ResponseEntity<Immobile> insert(@PathVariable String sellerId, @RequestBody Immobile entity) {
         entity.setSeller(sellerService.findById(sellerId));
         entity = service.save(entity);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entity.getId()).toUri();
@@ -80,13 +80,13 @@ public class ImmobileResource {
     }
 
     @DeleteMapping(value = "/vendor/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/vendor/{sellerId}/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long sellerId, @PathVariable Long id, @RequestBody ImmobileDTO entityDTO) {
+    public ResponseEntity<Void> update(@PathVariable String sellerId, @PathVariable String id, @RequestBody ImmobileDTO entityDTO) {
         entityDTO.setSeller(sellerService.findById(sellerId));
         Immobile newDataEntity = service.fromDTO(entityDTO);
         newDataEntity.setId(id);
@@ -95,7 +95,7 @@ public class ImmobileResource {
     }
 
     @GetMapping(value = "/vendor/{sellerId}")
-    public ResponseEntity<List<ImmobileDTO>> findBySellerId(@PathVariable Long sellerId) {
+    public ResponseEntity<List<ImmobileDTO>> findBySellerId(@PathVariable String sellerId) {
         List<Immobile> list = service.findBySeller(sellerService.findById(sellerId));
         List<ImmobileDTO> listDTO = list.stream().map(ImmobileDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);

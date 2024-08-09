@@ -8,14 +8,15 @@ import java.io.Serializable;
 public class SellerDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
     private String name;
     private String email;
     private String phoneNumber;
     private String registrationNumber;
     private String password;
 
-    public SellerDTO() {}
+    public SellerDTO() {
+    }
 
     public SellerDTO(Seller seller) {
         id = seller.getId();
@@ -26,11 +27,11 @@ public class SellerDTO implements Serializable {
         password = seller.getPassword();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

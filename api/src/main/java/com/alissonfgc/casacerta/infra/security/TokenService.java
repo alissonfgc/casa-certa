@@ -25,9 +25,8 @@ public class TokenService {
                     .withSubject(user.getEmail())
                     .withExpiresAt(this.generateExpirationTime())
                     .sign(algorithm);
-
             return token;
-        } catch (JWTCreationException e){
+        } catch (JWTCreationException e) {
             throw new RuntimeException("Error while authentication");
         }
     }
@@ -40,6 +39,7 @@ public class TokenService {
                     .build()
                     .verify(token)
                     .getSubject();
+
         } catch (JWTVerificationException e) {
             return null;
         }

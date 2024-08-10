@@ -11,6 +11,7 @@ public class VendorDTO implements Serializable {
     private String name;
     private String email;
     private String phoneNumber;
+    private String companyName;
 
     public VendorDTO() {
     }
@@ -20,6 +21,7 @@ public class VendorDTO implements Serializable {
         this.name = seller.getName();
         this.email = seller.getEmail();
         this.phoneNumber = seller.getPhoneNumber();
+        this.companyName = seller.getCompanyName();
     }
 
     public String getId() {
@@ -52,5 +54,13 @@ public class VendorDTO implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

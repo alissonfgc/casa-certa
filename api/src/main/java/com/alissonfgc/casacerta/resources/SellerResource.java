@@ -28,9 +28,9 @@ public class SellerResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<SellerDTO> findById(@PathVariable String id) {
-        Seller obj = service.findById(id);
+    @GetMapping(value = "/{email}")
+    public ResponseEntity<SellerDTO> findByEmail(@PathVariable String email) {
+        Seller obj = service.findByEmail(email);
         return ResponseEntity.ok().body(new SellerDTO(obj));
     }
 
@@ -42,16 +42,16 @@ public class SellerResource {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
-        service.delete(id);
+    @DeleteMapping(value = "/{email}")
+    public ResponseEntity<Void> delete(@PathVariable String email) {
+        service.delete(email);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@RequestBody SellerDTO objDTO, @PathVariable String id) {
+    @PutMapping(value = "/{email}")
+    public ResponseEntity<Void> update(@RequestBody SellerDTO objDTO, @PathVariable String email) {
         Seller newDataObj = service.fromDTO(objDTO);
-        newDataObj.setId(id);
+        newDataObj.setEmail(email);
         newDataObj = service.update(newDataObj);
         return ResponseEntity.noContent().build();
     }

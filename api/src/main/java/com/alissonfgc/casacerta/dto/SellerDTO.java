@@ -13,6 +13,7 @@ public class SellerDTO implements Serializable {
     private String phoneNumber;
     private String registrationNumber;
     private String password;
+    private String companyName;
 
     public SellerDTO() {
     }
@@ -24,6 +25,7 @@ public class SellerDTO implements Serializable {
         phoneNumber = seller.getPhoneNumber();
         registrationNumber = seller.getRegistrationNumber();
         password = seller.getPassword();
+        companyName = seller.getCompanyName();
     }
 
     public String getId() {
@@ -72,5 +74,13 @@ public class SellerDTO implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

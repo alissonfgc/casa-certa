@@ -1,10 +1,8 @@
 package com.alissonfgc.casacerta.resources;
 
-import com.alissonfgc.casacerta.dto.ClientDTO;
-import com.alissonfgc.casacerta.entities.Client;
-import com.alissonfgc.casacerta.entities.Immobile;
-import com.alissonfgc.casacerta.services.ClientService;
-import com.alissonfgc.casacerta.services.ImmobileService;
+import com.alissonfgc.casacerta.dto.UserDTO;
+import com.alissonfgc.casacerta.entities.User;
+import com.alissonfgc.casacerta.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,28 +13,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/clients")
-public class ClientResource {
+@RequestMapping(value = "/users")
+public class UserResource {
 
     @Autowired
-    private ClientService service;
+    private UserService service;
 
     @GetMapping
-    public ResponseEntity<List<ClientDTO>> findAll() {
-        List<Client> list = service.findAll();
-        List<ClientDTO> listDTO = list.stream().map(obj -> new ClientDTO(obj)).collect(Collectors.toList());
+    public ResponseEntity<List<UserDTO>> findAll() {
+        List<User> list = service.findAll();
+        List<UserDTO> listDTO = list.stream().map(UserDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> findById(@PathVariable String id) {
-        Client obj = service.findById(id);
-        return ResponseEntity.ok().body(new ClientDTO(obj));
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(new UserDTO(obj));
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody ClientDTO objDTO) {
-        Client obj = service.fromDTO(objDTO);
+    public ResponseEntity<Void> insert(@RequestBody UserDTO objDTO) {
+        User obj = service.fromDTO(objDTO);
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -49,8 +47,8 @@ public class ClientResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@RequestBody ClientDTO objDTO, @PathVariable String id) {
-        Client newDataObj = service.fromDTO(objDTO);
+    public ResponseEntity<Void> update(@RequestBody UserDTO objDTO, @PathVariable String id) {
+        User newDataObj = service.fromDTO(objDTO);
         newDataObj.setId(id);
         newDataObj = service.update(newDataObj);
         return ResponseEntity.noContent().build();

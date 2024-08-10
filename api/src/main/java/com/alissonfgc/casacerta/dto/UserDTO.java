@@ -1,29 +1,29 @@
 package com.alissonfgc.casacerta.dto;
 
-import com.alissonfgc.casacerta.entities.Client;
+import com.alissonfgc.casacerta.entities.User;
 
 import java.io.Serializable;
 
-public class ClientDTO implements Serializable {
+public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String id;
     private String name;
     private String email;
     private String phoneNumber;
-    private String individualRegistration;
+    private String registrationNumber;
     private String password;
 
-    public ClientDTO() {
+    public UserDTO() {
     }
 
-    public ClientDTO(Client client) {
-        this.id = client.getId();
-        this.name = client.getName();
-        this.email = client.getEmail();
-        this.phoneNumber = client.getPhoneNumber();
-        this.individualRegistration = client.getIndividualRegistration();
-        this.password = client.getPassword();
+    public UserDTO(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.phoneNumber = user.getPhoneNumber();
+        this.registrationNumber = user.getRegistrationNumber();
+        this.password = user.getPassword();
     }
 
     public String getId() {
@@ -58,12 +58,12 @@ public class ClientDTO implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getIndividualRegistration() {
-        return individualRegistration;
+    public String getRegistrationNumber() {
+        return registrationNumber;
     }
 
-    public void setIndividualRegistration(String individualRegistration) {
-        this.individualRegistration = individualRegistration;
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
     }
 
     public String getPassword() {

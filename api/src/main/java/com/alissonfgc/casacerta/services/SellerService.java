@@ -23,9 +23,9 @@ public class SellerService {
         return repository.findAll();
     }
 
-    public Seller findById(String id) {
-        Optional<Seller> object = repository.findById(id);
-        return object.orElseThrow(() -> new ResourceNotFoundException(id + ", Seller not found"));
+    public Seller findByEmail(String email) {
+        Optional<Seller> object = Optional.ofNullable(repository.findByEmail(email));
+        return object.orElseThrow(() -> new ResourceNotFoundException(email + ", Seller not found"));
     }
 
     public Seller insert(Seller object) {
@@ -36,13 +36,12 @@ public class SellerService {
         }
     }
 
-    public void delete(String id) {
-        findById(id);
-        repository.deleteById(id);
+    public void delete(String email) {
+        repository.delete(repository.findByEmail(email));
     }
 
     public Seller update(Seller newDataObj) {
-        Seller updatedDataObj = findById(newDataObj.getId());
+        Seller updatedDataObj = findByEmail(newDataObj.getEmail());
         updateData(updatedDataObj, newDataObj);
         return repository.save(updatedDataObj);
     }
@@ -53,9 +52,10 @@ public class SellerService {
         oldDataObj.setPhoneNumber(newDataObj.getPhoneNumber());
         oldDataObj.setRegistrationNumber(newDataObj.getRegistrationNumber());
         oldDataObj.setPassword(newDataObj.getPassword());
+        oldDataObj.setCompanyName(newDataObj.getCompanyName());
     }
 
     public Seller fromDTO(SellerDTO objDTO) {
-        return new Seller(objDTO.getId(), objDTO.getName(), objDTO.getEmail(), objDTO.getPhoneNumber(), objDTO.getRegistrationNumber(), objDTO.getPassword());
+        return new Seller(objDTO.getId(), objDTO.getName(), objDTO.getEmail(), objDTO.getPhoneNumber(), objDTO.getRegistrationNumber(), objDTO.getPassword(), objDTO.getCompanyName());
     }
 }

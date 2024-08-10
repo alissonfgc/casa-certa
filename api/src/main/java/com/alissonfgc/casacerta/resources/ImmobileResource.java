@@ -71,9 +71,9 @@ public class ImmobileResource {
         }
     }
 
-    @PostMapping(value = "/vendor/{sellerId}")
-    public ResponseEntity<Immobile> insert(@PathVariable String sellerId, @RequestBody Immobile entity) {
-        entity.setSeller(sellerService.findById(sellerId));
+    @PostMapping(value = "/vendor/{email}")
+    public ResponseEntity<Immobile> insert(@PathVariable String email, @RequestBody Immobile entity) {
+        entity.setSeller(sellerService.findByEmail(email));
         entity = service.save(entity);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entity.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -85,18 +85,18 @@ public class ImmobileResource {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(value = "/vendor/{sellerId}/{id}")
-    public ResponseEntity<Void> update(@PathVariable String sellerId, @PathVariable String id, @RequestBody ImmobileDTO entityDTO) {
-        entityDTO.setSeller(sellerService.findById(sellerId));
+    @PutMapping(value = "/vendor/{email}/{id}")
+    public ResponseEntity<Void> update(@PathVariable String email, @PathVariable String id, @RequestBody ImmobileDTO entityDTO) {
+        entityDTO.setSeller(sellerService.findByEmail(email));
         Immobile newDataEntity = service.fromDTO(entityDTO);
         newDataEntity.setId(id);
         service.update(newDataEntity);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "/vendor/{sellerId}")
-    public ResponseEntity<List<ImmobileDTO>> findBySellerId(@PathVariable String sellerId) {
-        List<Immobile> list = service.findBySeller(sellerService.findById(sellerId));
+    @GetMapping(value = "/vendor/{email}")
+    public ResponseEntity<List<ImmobileDTO>> findBySellerId(@PathVariable String email) {
+        List<Immobile> list = service.findBySeller(sellerService.findByEmail(email));
         List<ImmobileDTO> listDTO = list.stream().map(ImmobileDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
     }

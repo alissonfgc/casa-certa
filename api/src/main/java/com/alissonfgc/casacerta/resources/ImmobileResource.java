@@ -1,17 +1,13 @@
 package com.alissonfgc.casacerta.resources;
 
 import com.alissonfgc.casacerta.dto.AuxiliaryImmobileDTO;
-import com.alissonfgc.casacerta.dto.ImmobileDTO;
 import com.alissonfgc.casacerta.entities.Immobile;
 import com.alissonfgc.casacerta.resources.util.URL;
 import com.alissonfgc.casacerta.services.ImmobileService;
-import com.alissonfgc.casacerta.services.SellerService;
 import com.alissonfgc.casacerta.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,13 +17,11 @@ public class ImmobileResource {
 
     private final ImmobileService service;
 
-    private final SellerService sellerService;
-
-    public ImmobileResource(ImmobileService service, SellerService sellerService) {
+    public ImmobileResource(ImmobileService service) {
         this.service = service;
-        this.sellerService = sellerService;
     }
 
+    //TODOS
     @GetMapping
     public ResponseEntity<List<AuxiliaryImmobileDTO>> findAll() {
         List<Immobile> list = service.findAll();
@@ -35,12 +29,14 @@ public class ImmobileResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
+    //TODOS
     @GetMapping(value = "/{id}")
     public ResponseEntity<AuxiliaryImmobileDTO> findById(@PathVariable String id) {
         Immobile entity = service.findById(id);
         return ResponseEntity.ok().body(new AuxiliaryImmobileDTO(entity));
     }
 
+    //TODOS
     @GetMapping(value = "/equalsearch")
     public ResponseEntity<List<AuxiliaryImmobileDTO>> equalSearch(@RequestParam(value = "state", defaultValue = "") String state, @RequestParam(value = "city", defaultValue = "") String city, @RequestParam(value = "type", defaultValue = "") String type) {
         state = URL.decodeParam(state);
@@ -56,6 +52,7 @@ public class ImmobileResource {
         }
     }
 
+    //TODOS
     @GetMapping(value = "/fullsearch")
     public ResponseEntity<List<AuxiliaryImmobileDTO>> fullSearch(@RequestParam(value = "title", defaultValue = "none") String title, @RequestParam(value = "description", defaultValue = "none") String description, @RequestParam(value = "neighborhood", defaultValue = "none") String neighborhood) {
         title = URL.decodeParam(title);
@@ -69,35 +66,5 @@ public class ImmobileResource {
         } else {
             return ResponseEntity.ok().body(listDTO);
         }
-    }
-
-    @PostMapping(value = "/vendor/{email}")
-    public ResponseEntity<Immobile> insert(@PathVariable String email, @RequestBody Immobile entity) {
-        entity.setSeller(sellerService.findByEmail(email));
-        entity = service.save(entity);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entity.getId()).toUri();
-        return ResponseEntity.created(uri).build();
-    }
-
-    @DeleteMapping(value = "/vendor/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping(value = "/vendor/{email}/{id}")
-    public ResponseEntity<Void> update(@PathVariable String email, @PathVariable String id, @RequestBody ImmobileDTO entityDTO) {
-        entityDTO.setSeller(sellerService.findByEmail(email));
-        Immobile newDataEntity = service.fromDTO(entityDTO);
-        newDataEntity.setId(id);
-        service.update(newDataEntity);
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping(value = "/vendor/{email}")
-    public ResponseEntity<List<ImmobileDTO>> findBySellerId(@PathVariable String email) {
-        List<Immobile> list = service.findBySeller(sellerService.findByEmail(email));
-        List<ImmobileDTO> listDTO = list.stream().map(ImmobileDTO::new).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO);
     }
 }

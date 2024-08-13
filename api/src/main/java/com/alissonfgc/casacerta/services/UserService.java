@@ -58,4 +58,9 @@ public class UserService {
     public User fromDTO(UserDTO objDTO) {
         return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail(), objDTO.getPhoneNumber(), objDTO.getRegistrationNumber(), objDTO.getPassword());
     }
+
+    public User findByEmail(String email) {
+        Optional<User> object = Optional.ofNullable(repository.findByEmail(email));
+        return object.orElseThrow(() -> new ResourceNotFoundException(email + ", User not found"));
+    }
 }

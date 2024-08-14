@@ -8,10 +8,10 @@ import com.alissonfgc.casacerta.repository.AdminRepository;
 import com.alissonfgc.casacerta.repository.UserRepository;
 import com.alissonfgc.casacerta.repository.ImmobileRepository;
 import com.alissonfgc.casacerta.repository.SellerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -38,16 +38,16 @@ public class Instantiation implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Admin adm = new Admin(null, "Marlon Ademiro de Costa e Silva", "admin@casacerta.com", "(61) 9 8481-8184", "021.193.711-80", "12345");
+        Admin adm = new Admin(null, "Marlon Ademiro de Costa e Silva", "admin@casacerta.com", "(61) 9 8481-8184", "021.193.711-80", new BCryptPasswordEncoder().encode("12345678"));
 
         adminRepository.save(adm);
 
-        Seller s1 = new Seller(null, "João da Silva", "jao@gmail.com", "(61) 9 8181-8181", "73.356.041/0001-99", "12345678", "Seu Lar - Imoveis");
-        Seller s2 = new Seller(null, "Maria Fernandes Oliveira", "maria@gmail.com", "(61) 9 9191-9191", "03.192.042/0001-60", "12345687", "Maria Imoveis");
-        Seller s3 = new Seller(null, "Antonio Carlos Pereira", "antonio@gmail.com", "(61) 9 8585-8585", "77.518.118/0001-30", "12345699", "Antonio Venda de Imoveis");
-        Seller s4 = new Seller(null, "Carlos Eduardo Almeida", "carlos@gmail.com", "(61) 9 8282-8282", "74.025.365/0001-07", "12345700", "Construtora Almeida");
-        Seller s5 = new Seller(null, "Fernanda Costa Silva", "fernanda@gmail.com", "(61) 9 8383-8383", "26.084.423/0001-20", "12345711", "Empreiteira Costa");
-        Seller s6 = new Seller(null, "Juliana Santos Lima", "juliana@gmail.com", "(61) 9 8484-8484", "73.356.041/0001-99", "12345722", "Seu Lar - Imoveis");
+        Seller s1 = new Seller(null, "João da Silva", "jao@gmail.com", "(61) 9 8181-8181", "73.356.041/0001-99", new BCryptPasswordEncoder().encode("12345678"), "Seu Lar - Imoveis");
+        Seller s2 = new Seller(null, "Maria Fernandes Oliveira", "maria@gmail.com", "(61) 9 9191-9191", "03.192.042/0001-60", new BCryptPasswordEncoder().encode("12345687"), "Maria Imoveis");
+        Seller s3 = new Seller(null, "Antonio Carlos Pereira", "antonio@gmail.com", "(61) 9 8585-8585", "77.518.118/0001-30", new BCryptPasswordEncoder().encode("12345699"), "Antonio Venda de Imoveis");
+        Seller s4 = new Seller(null, "Carlos Eduardo Almeida", "carlos@gmail.com", "(61) 9 8282-8282", "74.025.365/0001-07", new BCryptPasswordEncoder().encode("12345700"), "Construtora Almeida");
+        Seller s5 = new Seller(null, "Fernanda Costa Silva", "fernanda@gmail.com", "(61) 9 8383-8383", "26.084.423/0001-20", new BCryptPasswordEncoder().encode("12345711"), "Empreiteira Costa");
+        Seller s6 = new Seller(null, "Juliana Santos Lima", "juliana@gmail.com", "(61) 9 8484-8484", "73.356.041/0001-99", new BCryptPasswordEncoder().encode("12345722"), "Seu Lar - Imoveis");
 
         sellerRepository.saveAll(Arrays.asList(s1, s2, s3, s4, s5, s6));
 
@@ -156,26 +156,26 @@ public class Instantiation implements CommandLineRunner {
 
         immobileRepository.saveAll(Arrays.asList(i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31, i32, i33, i34, i35, i36, i37, i38, i39, i40, i41, i42, i43, i44, i45, i46, i47, i48, i49, i50, i51, i52, i53, i54, i55, i56, i57, i58, i59, i60, i61, i62, i63, i64, i65, i66, i67, i68, i69, i70, i71, i72, i73, i74, i75, i76, i77, i78, i79, i80, i81, i82, i83, i84, i85, i86, i87, i88, i89, i90, i91, i92, i93, i94, i95, i96, i97, i98, i99, i100));
 
-        User c1 = new User(null, "Antônio Carlos Silva", "tonho@gmail.com", "(62) 9 8181-9191", "638.049.461-86", "12215678");
-        User c2 = new User(null, "Antônio Henrique Lima", "tonhao@gmail.com", "(61) 9 9191-8181", "749.670.181-57", "12399687");
-        User c3 = new User(null, "Toin Oliveira Santos", "toin@gmail.com", "(61) 9 8585-9191", "375.610.861-99", "12955699");
-        User c4 = new User(null, "Lucas Martins Almeida", "lucas@gmail.com", "(61) 9 8282-8282", "279.383.321-51", "13098765");
-        User c5 = new User(null, "Ana Paula Costa", "ana@gmail.com", "(21) 9 8383-8383", "192.535.241-20", "13123456");
-        User c6 = new User(null, "Pedro Henrique Lima", "pedro@gmail.com", "(61) 9 8484-8484", "058.231.411-90", "13234567");
-        User c7 = new User(null, "Márcia Silva Pereira", "marcia@gmail.com", "(62) 9 8585-8585", "060.454.621-14", "13345678");
-        User c8 = new User(null, "Joana D'Arc Costa", "joana@gmail.com", "(21) 9 8686-8686", "848.058.841-18", "13456789");
-        User c9 = new User(null, "Eduardo Mendes Ribeiro", "eduardo@gmail.com", "(61) 9 8787-8787", "201.987.248-02", "13567890");
-        User c10 = new User(null, "Carlos Eduardo Santos", "jose@gmail.com", "(61) 9 8888-8888", "347.591.441-70", "13678901");
-        User c11 = new User(null, "Mariana Rodrigues Silva", "mariana@gmail.com", "(61) 9 8989-8989", "719.440.768-08", "13789012");
-        User c12 = new User(null, "Gabriel Almeida Costa", "gabriel@gmail.com", "(61) 9 9090-9090", "283.289.910-20", "13890123");
-        User c13 = new User(null, "Juliana Fernandes Silva", "juliana123@gmail.com", "(61) 9 9191-9191", "342.479.190-32", "13901234");
-        User c14 = new User(null, "Ricardo Lima Souza", "ricardo@gmail.com", "(62) 9 9292-9292", "642.842.970-58", "14012345");
-        User c15 = new User(null, "Patrícia Costa Santos", "patricia@gmail.com", "(61) 9 9393-9393", "646.378.181-92", "14123456");
-        User c16 = new User(null, "Roberto Oliveira Silva", "roberto@gmail.com", "(61) 9 9494-9494", "765.132.491-98", "14234567");
-        User c17 = new User(null, "Mariana Souza Lima", "mariana.souza@gmail.com", "(21) 9 9595-9595", "868.209.131-33", "14345678");
-        User c18 = new User(null, "Fernando Martins Costa", "fernando@gmail.com", "(33) 9 9696-9696", "668.039.481-37", "14456789");
-        User c19 = new User(null, "Tatiane Ribeiro Almeida", "tatiane@gmail.com", "(61) 9 9797-9797", "604.826.361-90", "14567890");
-        User c20 = new User(null, "Felipe Santos Costa", "felipe@gmail.com", "(61) 9 9898-9898", "076.317.001-17", "14678901");
+        User c1 = new User(null, "Antônio Carlos Silva", "tonho@gmail.com", "(62) 9 8181-9191", "638.049.461-86", new BCryptPasswordEncoder().encode("12345678"));
+        User c2 = new User(null, "Antônio Henrique Lima", "tonhao@gmail.com", "(61) 9 9191-8181", "749.670.181-57", new BCryptPasswordEncoder().encode("12399687"));
+        User c3 = new User(null, "Toin Oliveira Santos", "toin@gmail.com", "(61) 9 8585-9191", "375.610.861-99", new BCryptPasswordEncoder().encode("12955699"));
+        User c4 = new User(null, "Lucas Martins Almeida", "lucas@gmail.com", "(61) 9 8282-8282", "279.383.321-51", new BCryptPasswordEncoder().encode("13098765"));
+        User c5 = new User(null, "Ana Paula Costa", "ana@gmail.com", "(21) 9 8383-8383", "192.535.241-20", new BCryptPasswordEncoder().encode("13123456"));
+        User c6 = new User(null, "Pedro Henrique Lima", "pedro@gmail.com", "(61) 9 8484-8484", "058.231.411-90", new BCryptPasswordEncoder().encode("13234567"));
+        User c7 = new User(null, "Márcia Silva Pereira", "marcia@gmail.com", "(62) 9 8585-8585", "060.454.621-14", new BCryptPasswordEncoder().encode("13345678"));
+        User c8 = new User(null, "Joana D'Arc Costa", "joana@gmail.com", "(21) 9 8686-8686", "848.058.841-18", new BCryptPasswordEncoder().encode("13456789"));
+        User c9 = new User(null, "Eduardo Mendes Ribeiro", "eduardo@gmail.com", "(61) 9 8787-8787", "201.987.248-02", new BCryptPasswordEncoder().encode("13567890"));
+        User c10 = new User(null, "Carlos Eduardo Santos", "jose@gmail.com", "(61) 9 8888-8888", "347.591.441-70", new BCryptPasswordEncoder().encode("13678901"));
+        User c11 = new User(null, "Mariana Rodrigues Silva", "mariana@gmail.com", "(61) 9 8989-8989", "719.440.768-08", new BCryptPasswordEncoder().encode("13789012"));
+        User c12 = new User(null, "Gabriel Almeida Costa", "gabriel@gmail.com", "(61) 9 9090-9090", "283.289.910-20", new BCryptPasswordEncoder().encode("13890123"));
+        User c13 = new User(null, "Juliana Fernandes Silva", "juliana123@gmail.com", "(61) 9 9191-9191", "342.479.190-32", new BCryptPasswordEncoder().encode("13901234"));
+        User c14 = new User(null, "Ricardo Lima Souza", "ricardo@gmail.com", "(62) 9 9292-9292", "642.842.970-58", new BCryptPasswordEncoder().encode("14012345"));
+        User c15 = new User(null, "Patrícia Costa Santos", "patricia@gmail.com", "(61) 9 9393-9393", "646.378.181-92", new BCryptPasswordEncoder().encode("14123456"));
+        User c16 = new User(null, "Roberto Oliveira Silva", "roberto@gmail.com", "(61) 9 9494-9494", "765.132.491-98", new BCryptPasswordEncoder().encode("14234567"));
+        User c17 = new User(null, "Mariana Souza Lima", "mariana.souza@gmail.com", "(21) 9 9595-9595", "868.209.131-33", new BCryptPasswordEncoder().encode("14345678"));
+        User c18 = new User(null, "Fernando Martins Costa", "fernando@gmail.com", "(33) 9 9696-9696", "668.039.481-37", new BCryptPasswordEncoder().encode("14456789"));
+        User c19 = new User(null, "Tatiane Ribeiro Almeida", "tatiane@gmail.com", "(61) 9 9797-9797", "604.826.361-90", new BCryptPasswordEncoder().encode("14567890"));
+        User c20 = new User(null, "Felipe Santos Costa", "felipe@gmail.com", "(61) 9 9898-9898", "076.317.001-17", new BCryptPasswordEncoder().encode("14678901"));
 
         userRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20));
     }

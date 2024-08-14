@@ -2,19 +2,24 @@ package com.alissonfgc.casacerta.entities;
 
 import com.alissonfgc.casacerta.entities.roles.UserRole;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
-
-//, UserDetails
 
 @Table(name = "tb_user")
 @Entity(name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
+
+    //adicionar anotation @valid
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -87,6 +92,10 @@ public class User implements Serializable {
         this.registrationNumber = registrationNumber;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -95,8 +104,40 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public UserRole getRole() {
-        return role;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (role == UserRole.ADMIN) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_SELLER"), new SimpleGrantedAuthority("ROLE_CLIENT"));
+        } if (role == UserRole.SELLER) {
+            return List.of(new SimpleGrantedAuthority("ROLE_SELLER"), new SimpleGrantedAuthority("ROLE_CLIENT"));
+        } else {
+            return List.of(new SimpleGrantedAuthority("ROLE_CLIENT"));
+        }
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
 
     @Override

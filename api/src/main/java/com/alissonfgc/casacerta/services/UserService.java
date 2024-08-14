@@ -5,13 +5,17 @@ import com.alissonfgc.casacerta.entities.User;
 import com.alissonfgc.casacerta.repository.UserRepository;
 import com.alissonfgc.casacerta.services.exceptions.ResourceNotFoundException;
 import com.alissonfgc.casacerta.services.exceptions.UniqueException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
 
@@ -29,9 +33,11 @@ public class UserService {
     }
 
     public User insert(User object) {
-        if (repository.findByEmail(object.getEmail()) != null) {
+        if (repository.findUserByEmail(object.getEmail()) != null) {
             throw new UniqueException("Email already exists");
         } else {
+            String encryptedPassword = new BCryptPasswordEncoder().encode(object.getPassword());
+            object.setPassword(encryptedPassword);
             return repository.save(object);
         }
     }
@@ -60,7 +66,12 @@ public class UserService {
     }
 
     public User findByEmail(String email) {
-        Optional<User> object = Optional.ofNullable(repository.findByEmail(email));
+        Optional<User> object = Optional.ofNullable(repository.findUserByEmail(email));
         return object.orElseThrow(() -> new ResourceNotFoundException(email + ", User not found"));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findByEmail(username);
     }
 }

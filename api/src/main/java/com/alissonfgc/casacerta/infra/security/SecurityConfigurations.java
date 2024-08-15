@@ -39,7 +39,7 @@ public class SecurityConfigurations {
                         .anyRequest().authenticated()
                 )
                 .build();
-    }
+    }git
 
     @Bean
     WebSecurityCustomizer ignoringCustomizer() {

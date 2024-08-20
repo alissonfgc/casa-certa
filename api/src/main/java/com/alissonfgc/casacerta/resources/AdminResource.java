@@ -78,11 +78,7 @@ public class AdminResource {
         return ResponseEntity.ok().body(listDTO);
     }
 
-    @GetMapping(value = "/users/{email}")
-    public ResponseEntity<UserDTO> findUserByEmail(@PathVariable String email) {
-        User obj = userService.findByEmail(email);
-        return ResponseEntity.ok().body(new UserDTO(obj));
-    }
+
 
     //SELLER
     @GetMapping(value = "/seller")

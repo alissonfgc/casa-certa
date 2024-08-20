@@ -17,6 +17,12 @@ public class UserResource {
     }
 
     //alterar para que o usuario possa alterar somente o propio cadastro
+    @GetMapping(value = "/{email}")
+    public ResponseEntity<UserDTO> findUserByEmail(@PathVariable String email) {
+        User obj = service.findByEmail(email);
+        return ResponseEntity.ok().body(new UserDTO(obj));
+    }
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);

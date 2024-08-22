@@ -28,6 +28,12 @@ public class SellerResource {
     }
 
     //alterar para que o usuario altere somente o propio cadastro
+    @GetMapping(value = "/{email}")
+    public ResponseEntity<SellerDTO> findSellerByEmail(@PathVariable String email) {
+        Seller obj = service.findByEmail(email);
+        return ResponseEntity.ok().body(new SellerDTO(obj));
+    }
+
     @DeleteMapping(value = "/{email}")
     public ResponseEntity<Void> delete(@PathVariable String email) {
         service.delete(email);
